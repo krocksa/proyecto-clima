@@ -1,0 +1,126 @@
+openapi: 3.0.0
+info:
+  title: API Clima y Sismos
+  version: 1.0.0
+  description: API REST para gestionar reportes meteorológicos y sísmicos.
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /weather:
+    post:
+      summary: Crear reporte climático
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                temperature:
+                  type: number
+                humidity:
+                  type: integer
+                condition:
+                  type: string
+              required: [city, temperature, humidity, condition]
+      responses:
+        '200':
+          description: Reporte creado con éxito
+        '400':
+          description: Datos inválidos
+
+  /weather/history/{city}:
+    get:
+      summary: Obtener historial climático por ciudad
+      parameters:
+        - name: city
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Nombre de la ciudad
+      responses:
+        '200':
+          description: Lista de reportes
+        '404':
+          description: Ciudad no encontrada
+
+  /earthquakes:
+    post:
+      summary: Crear reporte sísmico
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                country:
+                  type: string
+                location:
+                  type: string
+                magnitude:
+                  type: number
+                depth:
+                  type: integer
+                date:
+                  type: string
+                  format: date
+              required: [country, location, magnitude, depth, date]
+      responses:
+        '200':
+          description: Reporte sísmico creado
+        '400':
+          description: Datos inválidos
+
+  /earthquakes/{id}:
+    delete:
+      summary: Eliminar reporte sísmico por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del reporte
+      responses:
+        '200':
+          description: Eliminado correctamente
+        '404':
+          description: Reporte no encontrado
+
+  /earthquakes/history/{country}:
+    get:
+      summary: Historial sísmico por país
+      parameters:
+        - name: country
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Nombre del país
+      responses:
+        '200':
+          description: Lista de reportes
+        '404':
+          description: País sin registros
+
+  /earthquakes/{source}:
+    get:
+      summary: Buscar sismos por fuente
+      parameters:
+        - name: source
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Fuente del reporte (ej. USGS, FUNVISIS)
+      responses:
+        '200':
+          description: Reportes por fuente
+        '404':
+          description: Fuente no encontrada
