@@ -11,3 +11,7 @@ Una API desarrollada con Node.js, Express y MongoDB que permite registrar y cons
 ```bash
 git clone https://github.com/krocksa/proyecto-clima.git
 ```
+2. Entra al directorio del proyecto:
+
+```bash
+cd proyecto-clima
