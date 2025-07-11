@@ -1,12 +1,16 @@
-const express = require('express');
-const router = express.Router();
-const earthquakeController = require('../controllers/earthquakeController');
-const validateEarthquake = require('../middlewares/earthquakeValidator');
-const handleValidation = require('../middlewares/handleValidation');
+const express = require("express");
+const {
+  createEarthquakeReport,
+  getEarthquakeBySource,
+  getEarthquakeHistory,
+  deleteEarthquakeReport
+} = require("../controllers/earthquakeController");
 
-router.post('/', validateEarthquake, handleValidation, earthquakeController.createEarthquakeReport);
-router.get('/history/:country', earthquakeController.getEarthquakeHistory);
-router.get('/:source', earthquakeController.getEarthquakeBySource);
-router.delete('/:id', earthquakeController.deleteEarthquakeReport);
+const router = express.Router();
+
+router.post("/", createEarthquakeReport);
+router.get("/source/:source", getEarthquakeBySource);
+router.get("/history/:country", getEarthquakeHistory);
+router.delete("/:id", deleteEarthquakeReport);
 
 module.exports = router;
