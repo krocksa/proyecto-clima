@@ -15,3 +15,10 @@ git clone https://github.com/krocksa/proyecto-clima.git
 
 ```bash
 cd proyecto-clima
+
+## 🔧 Ejecución
+
+Para iniciar el servidor:
+
+```bash
+npm start
